@@ -40,5 +40,5 @@ jobs:
           file: ./dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/tmcp-dashboard:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/tmcp-dashboard:${{ steps.tag_version.outputs.new_tag }}
+            lupca/tmcp-dashboard:latest
+            lupca/tmcp-dashboard:${{ steps.tag_version.outputs.new_tag }}
