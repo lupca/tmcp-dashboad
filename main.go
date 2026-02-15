@@ -29,6 +29,28 @@ func main() {
 	})
 
 	app.OnServe().BindFunc(func(e *core.ServeEvent) error {
+		// Auto-create initial admin if provided via environment variables and no admins exist
+		adminEmail := os.Getenv("POCKETBASE_ADMIN_EMAIL")
+		adminPassword := os.Getenv("POCKETBASE_ADMIN_PASSWORD")
+
+		if adminEmail != "" && adminPassword != "" {
+			superusers, err := app.FindCollectionByNameOrId("_superusers")
+			if err == nil {
+				total, err := app.CountRecords(superusers)
+				if err == nil && total == 0 {
+					record := core.NewRecord(superusers)
+					record.Set("email", adminEmail)
+					record.Set("password", adminPassword)
+
+					if err := app.Save(record); err != nil {
+						log.Printf("Failed to create initial admin: %v", err)
+					} else {
+						log.Println("Created initial admin user from environment variables")
+					}
+				}
+			}
+		}
+
 		e.Router.GET("/api/tmcp/collections", func(e *core.RequestEvent) error {
 			if e.Auth == nil {
 				return apis.NewForbiddenError("Authentication required", nil)
