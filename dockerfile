@@ -18,12 +18,12 @@ RUN go mod download
 # Copy the source from the current directory to the Working Directory inside the container
 COPY . .
 
-# Build the Go app
+# Build the Go app package
 # CGO_ENABLED=0 ensures a statically linked binary
 # GOOS and GOARCH ensure we target the correct platform
 ARG TARGETOS
 ARG TARGETARCH
-RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags="-s -w" -o /app/pb_app main.go
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags="-s -w" -o /app/pb_app .
 
 # Start a new stage from scratch
 FROM alpine:latest

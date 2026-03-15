@@ -161,7 +161,7 @@ graph TD
 | Check | Result |
 |-------|--------|
 | `go build .` | ✅ Compiled successfully |
-| `go run main.go serve` | ✅ Server started, all migrations applied |
+| `go run . serve` | ✅ Server started, all migrations applied |
 | Migration 1 recorded in `_migrations` | ✅ `1739613560_initial_collections.go` |
 | Migration 2 recorded in `_migrations` | ✅ `1771148112_add_missing_fields.go` |
 | Server accessible at `http://127.0.0.1:8090` | ✅ Running |
