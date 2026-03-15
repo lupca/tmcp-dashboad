@@ -66,6 +66,8 @@ func main() {
 				"items": collections,
 			})
 		})
+
+		registerSocialPublishRoutes(app, e)
 		return e.Next()
 	})
 
