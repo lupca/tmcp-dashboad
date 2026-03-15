@@ -30,8 +30,8 @@ func main() {
 
 	app.OnServe().BindFunc(func(e *core.ServeEvent) error {
 		// Auto-create initial admin if provided via environment variables and no admins exist
-		adminEmail := os.Getenv("admin@tmcp.com")
-		adminPassword := os.Getenv("123qweasdzxc")
+		adminEmail := os.Getenv("PB_ADMIN_EMAIL")
+		adminPassword := os.Getenv("PB_ADMIN_PASSWORD")
 
 		if adminEmail != "" && adminPassword != "" {
 			superusers, err := app.FindCollectionByNameOrId("_superusers")
