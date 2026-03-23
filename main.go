@@ -19,6 +19,8 @@ import (
 func main() {
 	app := pocketbase.New()
 
+	RegisterTikTokCommands(app)
+
 	// loosely check if it was executed using "go run"
 	isGoRun := strings.HasPrefix(os.Args[0], os.TempDir())
 
@@ -68,6 +70,7 @@ func main() {
 		})
 
 		registerSocialPublishRoutes(app, e)
+		registerVideoRoutes(app, e)
 		return e.Next()
 	})
 
